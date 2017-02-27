@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Algolift</title>
+</head>
+<body style="margin:0px; padding:0px; background-color:#f0f0f0;">
+	<div style="width:100%; margin:0 auto">   
+		<div style="background:#1e505d; height:40px;"> 
+			<img src="{{url}}/images/inner-logo.png" alt="" style="display:block;padding-top:10px; margin-left:20px"/> 
+		</div>   
+		<div style="margin: 20px; background-color:#fff; border: solid 1px #98c1cb; padding:20px; font-family:arial; font-size:14px; text-align:center;">     
+		{{#equal role 'Account Manager'}}
+			<p>Congratulations! You have been approved as the {{role}} for <strong>{{organization}}</strong></p>
+		{{else}}
+			<p>Congratulations! You have been approved as a {{role}} for <strong>{{organization}}</strong> with access to the following titles:</p>
+		{{/equal}}
+
+			
+		{{#equal role 'Account Manager'}}
+			<p>Please complete your registration so you can create reports and manage team members for your organization.</p>
+		{{else}}
+		<div style="padding-right:35px; margin-top:30px;"> 
+				<ul	 style="list-style: none;padding-left: 0px;">
+					{{#each titles}}
+					<li>{{name}}</li>
+					{{/each}}
+				</ul>
+			</div>
+			<p>Please complete registration so you can start accessing reports.</p>
+		{{/equal}}
+			<a href="{{url}}/register?token={{token}}" target="_blank" style="background:#ff8d46; color:#fff; font-size:16px;padding:6px 12px; border:0px;text-decoration:none">Get Started</a>
+		</div>
+	</div>
+</body>
+</html>

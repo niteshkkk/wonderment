@@ -1,0 +1,131 @@
+                        <!--cohort date ends-->
+                        <div class="col-md-2 platform-width">
+                           <div class="form-group">
+                              <label class="col-md-2 labelname labelwidth-pl text-left">platform:</label>
+                              <div class="col-md-6">
+                                 <div class="dropdown">
+                                    <button class="btn btn-dropdwn dropdown-toggle btn-textoveflow-ellipse" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="{{paltformvaluetodisplay}}" ><span class="fa fa-angle-down pull-right pt-2"></span> 
+                                    {{#if paltformvaluetodisplay}}
+                                       {{paltformvaluetodisplay}}
+                                    {{else}}
+                                       All
+                                    {{/if}}
+                                    </button>
+                                    <ul class="platform-dd dropdown-menu chkdd" aria-labelledby="dropdownMenu4" id="platformmenu">
+                                       <li>
+                                          <div class="form-group">
+                                             <div class="icon-addon addon-md">
+                                                <input type="text" class="form-control" id="search">
+                                                <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       <span class="list-hd">Platforms</span>
+                                       <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >
+                                          <li class="all-check">
+                                             <input type="checkbox" id="all" 
+                                             {{#if paltformvaluetodisplay}}
+                                                {{#equal paltformvaluetodisplay "All"}} checked {{/equal}}
+                                             {{else}}
+                                                checked
+                                             {{/if}}>
+                                             <label for="all">All </label>
+                                          </li>
+                                          {{#if checkSourceplatform}}
+                                             {{#each checkSourceplatform}}
+                                              <li>
+                                                <input type="checkbox" id="{{removespace PlatformName}}" {{#if SourceChecked}}checked{{/if}}>
+                                                <label for="{{removespace PlatformName}}">{{PlatformName}}</label>
+                                             </li>
+                                             {{/each}}
+                                          {{/if}}
+                                       </div>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>                       
+                        <div class="col-md-2 sources-width">
+                           <div class="form-group">
+                              <label class="col-md-2 labelname labelwidth-sourc">sources:</label>
+                              <div class="col-md-6">
+                                 <div class="dropdown">
+                                    <button class="btn btn-dropdwn dropdown-toggle btn-textoveflow-ellipse" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="{{sourcevaluetodisplay}}"><span class="fa fa-angle-down pull-right pt-2"></span>
+                                    {{#if sourcevaluetodisplay}}
+                                       {{sourcevaluetodisplay}}
+                                    {{else}}
+                                       All
+                                    {{/if}}
+                                    </button>
+                                    <ul class="platform-dd dropdown-menu chkdd dd-ht" id="sourcemenu" aria-labelledby="dropdownMenu1">
+                                       <li>
+                                          <div class="form-group">
+                                             <div class="icon-addon addon-md">
+                                                <input type="text" class="form-control" id="search">
+                                                <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       <span class="list-hd">Sources</span>
+                                       <div class="scrollbar source-scrll-ht mCustomScrollbar" data-mcs-theme="dark" >
+                                          <li class="all-check" >
+                                             <input type="checkbox" id="all_source" {{#if sourcevaluetodisplay}}{{#equal sourcevaluetodisplay "All"}} checked {{/equal}} {{/if}}>
+                                             <label for="all_source">All </label>
+                                          </li>
+                                          {{#if checkSourcesources}}
+                                             {{#each checkSourcesources}}
+                                              <li>
+                                                <input type="checkbox" id="{{removespace SorceName}}_source" {{#if SourceChecked}}checked{{/if}}>
+                                                <label for="{{removespace SorceName}}_source">{{SorceName}}</label>
+                                             </li>
+                                             {{/each}}
+                                          {{/if}}
+                                          
+                                       </div>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!--sources ends--> 
+                        <!--country strats-->
+                        <div class="col-md-2 country-width">
+                           <div class="form-group">
+                              <label class="col-md-2 labelname labelwidth-sourc">country:</label>
+                              <div class="col-md-6">
+                                 <div class="dropdown">
+                                    <button class="btn btn-dropdwn dropdown-toggle btn-textoveflow-ellipse" type="button" id="dropdownMenuCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="{{countryvaluetodisplay}}"><span class="fa fa-angle-down pull-right pt-2"></span>{{#if countryvaluetodisplay}}{{countryvaluetodisplay}}{{else}}All{{/if}}</button>
+                                    <ul class="platform-dd dropdown-menu chkdd country-ht" aria-labelledby="dropdownMenuCountry">
+                                       <li>
+                                          <div class="form-group">
+                                             <div class="icon-addon addon-md">
+                                                <input type="text" class="form-control" id="country">
+                                                <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       <span class="list-hd">Countries</span>
+                                       <div class="scrollbar country-scroll-ht mCustomScrollbar" data-mcs-theme="dark" >
+                                           <div class="country-li-width">
+                                          {{#equal countryvaluetodisplay 'All'}}
+                                             <li class="active-country">All</li>
+                                          {{else}}
+                                             <li>All</li>
+                                          {{/equal}}
+                                          {{#if checkSourcecountry}}
+                                             {{#each checkSourcecountry}}
+                                                {{#equal countryvaluetodisplay CountryName}}
+                                                   <li class="active-country">{{CountryName}}</li>
+                                                {{else}}
+                                                   <li>{{CountryName}}</li>
+                                                {{/equal}}
+                                             {{/each}}
+                                          {{/if}}
+                                            </div>
+                                       </div>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!---country ends-->  

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Algolift</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/jquery.mCustomScrollbar.css"/>
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/sitestyles.css" type="text/css" />
+<link rel="stylesheet" href="/css/open-sans.css" type="text/css" />
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="/js/jquery.min.js"></script> 
+<script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+{{#equal usertitledetails.role "SuperAdmin"}}
+<input type="hidden" id="hdnorganization" value="{{usertitledetails.selectedOrganization}}"  />
+<input type="hidden" id="hdntitle" value="{{usertitledetails.selectedGameTitle}}" />
+{{else}}
+<input type="hidden" id="hdnorganization" value="{{usertitledetails.organization}}"  />
+<input type="hidden" id="hdntitle" value="{{usertitledetails.firstTitle}}" />
+{{/equal}}
+
+<input type="hidden" id="hdnemail" value="{{usertitledetails.email}}" />
+<input type="hidden" id="hdnplatform" value="{{paltformvaluetodisplay}}" />
+<input type="hidden" id="hdnpagetype" value="dashboard">
+<input type="hidden" id="hdnsource" value="{{sourcevaluetodisplay}}" />
+
+<input type="hidden" id="hdncountry" value="{{countryvaluetodisplay}}" />
+<input type="hidden" id="hdnstartdate" value="{{dateMinChart}}" />
+<input type="hidden" id="hdnenddate" value="{{dateMaxChart}}" />
+<input type="hidden" id="hdnhorizon" value="{{reportList.0.horizon}}" />
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12"> 
+         <!-- Fixed navbar -->
+         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand algolift-logo" href="#"></a> </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li class="his_arpi"><a href="javascript:void(0);">Historical Source ARPI</a></li>
+                     <li class="active dashboard_click "><a href="javascript:void(0);">UA Dashboard</a></li>
+                     <li class=" dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{usertitledetails.firstName}} <span class="fa fa-angle-down"></span></a>                       
+                        <ul class="usersettings dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#" class="user setting userset">User Settings</a></li>
+                            {{#equal usertitledetails.role "Team Member"}}{{else}}
+                            <li><a href="#" class="manageacc">Manage Accounts</a></li>
+                           {{/equal}}
+                            <li><a href="#" class="logout">Logout</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.nav-collapse --> 
+            </div>
+         </nav>
+      </div>
+   </div>
+   <div class="container mt-57">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+               <div class="page-section">
+                <div class="btn-group">
+                {{#equal usertitledetails.role "SuperAdmin"}}
+                  <div class="ea-battlefield">
+                     <div class="dropdown">
+                        <button class="btn dropdown-toggle drop-minwidth" type="button" id="dropdownMenu8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down"></span><span id="orgna">{{usertitledetails.selectedOrganization}}</span></button>
+                        <ul class="battlefield dropdown-menu dropdown-menu-right organization" aria-labelledby="dropdownMenu8">
+                           <li>
+                              <div class="form-group">
+                                 <div class="icon-addon addon-md">
+                                    <input type="text" class="form-control" id="search">
+                                    <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                 </div>
+                              </div>
+                           </li>
+                           <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >
+                           {{#each usertitledetails.Organizations}}
+                              <li><a class="clsorg" href="/dashboard_columnchart?org={{name}}">{{name}}</a></li>
+                           {{/each}}
+                           </div>
+                        </ul>
+                     </div>
+                     {{#if usertitledetails.selectedGameTitle}}
+                     <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down"></span><span id="game" class="ea-hd">{{usertitledetails.selectedGameTitle}}</span> </button>
+                        <ul class="battlefield dropdown-menu dropdown-menu-right gametitle" aria-labelledby="dropdownMenu2">
+                           <li>
+                              <div class="form-group">
+                                 <div class="icon-addon addon-md">
+                                    <input type="text" class="form-control" id="search">
+                                    <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                 </div>
+                              </div>
+                           </li>
+                           <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >
+                           {{#each usertitledetails.GameTitles}}
+                              <li><a class="gametitle" href="/dashboard_columnchart?title={{name}}">{{name}}</a></li>
+                           {{/each}}
+                           </div>
+                        </ul>
+                     </div>
+                     {{/if}}
+                  </div>
+                {{else}}
+                  <div class="ea-battlefield dropdown">
+                     <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down"></span> <span id="orgna">{{usertitledetails.organization}}</span> <span id="game" class="ea-hd">{{usertitledetails.firstTitle}}</span> </button>
+                     <ul class="battlefield dropdown-menu dropdown-menu-right gametitle" aria-labelledby="dropdownMenu2">
+                        <li>
+                           <div class="form-group">
+                              <div class="icon-addon addon-md">
+                                 <input type="text" class="form-control" id="search">
+                                 <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                              </div>
+                           </div>
+                        </li>
+                        <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >
+                        {{#each usertitledetails.titles}}
+                          <li><a href="/dashboard_columnchart?title={{name}}">{{name}}</a></li>
+                        {{/each}}
+                       </div>
+                     </ul>
+                  </div>
+                {{/equal}}
+                  </div>
+                  <div class="report-title">
+                     <div class="report-title-hd">
+                        <div class=" dropdown">
+                          <input type="hidden" id="hdnreportid"  value="{{#if reportList}}{{reportList.0.reportid}}{{/if}}" />
+                          <input type="hidden" id="hdnReportTitle"  value="{{#if reportList}}{{reportList.0.reporttitlename}}{{/if}}" />                         
+                           <button class="btn dropdown-toggle btn-textoveflow-ellipse" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="{{#if reportList}}{{reportList.0.reporttitlename}}{{/if}}"><span class="fa fa-angle-down pull-right mt-3"></span> 
+                            {{#if reportList}} {{reportList.0.reporttitlename}}
+                            {{else}}
+                            Report Title
+                            {{/if}}
+                            </button>
+                           <ul class="reporttitle dropdown-menu" aria-labelledby="dropdownMenu3">
+                        <li>
+                           <div class="form-group">
+                              <div class="icon-addon addon-md">
+                                 <input type="text" class="form-control" id="search">
+                                 <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                              </div>
+                           </div>
+                        </li>
+                        <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >      
+            {{#each reportList}}<li><a class="column_chart_title" reporttitlename="{{reporttitlename}}" title="{{title}}" href="javascript:void(0)" data-id="{{reportid}}" data-name="{{reporttitlename}}" onclick="populatereportid(this)">{{reporttitlename}}</a></li>{{/each}}
+                           </div>
+                     </ul>
+                        </div>
+                        <span class=" xp"><input type="text" class="highvalue-source" placeholder="Enter Report Title" id="reportName" /></span>
+                        <div class="save-btns">
+                        {{#equal usertitledetails.role "SuperAdmin"}}
+                           <a href="javascript:void(0);" class="disabled"> <i class="save-icn"></i> Save </a> 
+                           <a href="javascript:void(0);" class="disabled"> <i class="saveas-icn"></i> Save As </a> 
+                           <a href="javascript:void(0);" class="disabled"> <i class="revert-icn"></i> Revert </a> 
+                        {{else}}  
+                          <a href="javascript:void(0);" id="saveReport"> <i class="save-icn  savereportbtn"></i> Save </a> 
+                          <a href="javascript:void(0);" class="saveas" data-toggle="modal" data-target="#saveasModal" > <i class="saveas-icn"></i> Save As </a> 
+                          <a href="javascript:void(0);" class="disabled" id="revert" onclick="reverdata()"> <i class="revert-icn"></i> Revert </a> 
+                        {{/equal}}
+                        </div>
+                        <div class="compulsory-field" id="message" style="border:0"> </div>
+                     </div>
+                     <div class="clearfix"></div>
+                  </div>
+                  <hr>
+
+               </div>               
+              {{>dashboardmaster}}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer>
+    {{>footer}}
+</footer>
+<div class="overlay"><div class="loader"></div></div> 
+{{> saveasModal}}
+
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.validate.js"></script>
+<script src="/js/site.js"></script>
+<script>window.jQuery || document.write('<script src="/js/minified/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="/js/dashboard_search.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/js/custom.js"></script>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>
+</body>
+</html>
+

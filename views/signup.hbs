@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Algolift</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/open-sans.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css"> 
+<link rel="stylesheet" href="css/progress.css" />
+<link rel="stylesheet" href="css/sitestyles.css" type="text/css" />
+
+</head>
+<body class="skyblue-clr">
+<div class="outer-container">
+<div class="container-fluid login-bg" id="page-top">
+   <div class="row">
+      <div class="col-md-12">
+         <div class="col-md-4 col-md-offset-4 inner col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+            <div class="text-box">
+               <p class="intro">Welcome To</p>
+               <p><img src="images/logo.png" alt=""/></p>
+                <div class="formbg1">
+                <div class="complete-ur-registration"> 
+                 <p>Please complete your registration:</p>
+                 <p class="pemail"><strong>{{sendTo.email}}</strong></p>
+                 <p class="last porg">{{sendTo.organization}}</p>
+                 <p class="error register_form_error"></p>
+                </div>
+               <form class="form registrationform" id="frmsign" >
+               <div class="error-message text-center mb-15 signup_form_error"></div>
+                  <div class="form-group">
+                    <span class="astrik">*</span>
+                    <input type="text" class="form-control" placeholder="First Name" name="fname" style="margin-left:0" value=""/>
+                  </div>
+                  <div class="form-group">
+                    <span class="astrik">*</span>
+                    <input type="text" class="form-control" name="lname" placeholder="Last Name" value="" style="margin-left:0" />
+                  </div>
+                  <div class="form-group">
+                    <span class="astrik">*</span>
+                    <input type="password" id="password" name="pwd" style="margin-left:0" class="form-control pwdSignupprogress" placeholder="Password"/>
+                  </div>  
+                  <div class="progressSignup">
+                     
+                  </div> 
+                  <div class="password-requirements" style="margin-bottom: 30px;">
+                           <p>Password Requirements</p>
+                           <ul>
+                              <li>Include both lower and upper case characters.</li>
+                              <li>Include at least one number or symbol.</li>
+                              <li>Be at least 8 characters long.</li>
+                           </ul>
+                           
+                        </div>               
+                  <button type="button" class="btn btn-signup mtb floatinher clsSignup" >SIGN UP</button>
+               </form>
+                    </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+    </div>
+<!--thank you modal-->
+<div class="modal fade" tabindex="-1" role="dialog" id="ThanksRegistration">
+   <div class="modal-dialog thanksregister-modal">
+      <form>
+         <div class="modal-content">
+           <div class="modal-header">
+               
+            </div>
+            <div class="modal-body">
+               <p class="thanks-msg">
+{{#equal sendTo.role 'Account Manager'}}
+               Thank you for completing registration. Please login to manage your account and invite users to join your team.
+               {{else}}
+               Thank you for completing registration. Please login to see reports for your assigned titles.
+{{/equal}}
+               </p>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn getstarted-btn  mb-20 ok" data-toggle="modal" data-target="#ThanksRegistration">Get Started</button>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </form>
+   </div>
+   <!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
+<!--thank you modal ends-->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+
+<script src="js/signup.js"></script> 
+<script src="js/site.js"></script>
+<script src="js/jquery.validate.js"></script>
+
+<div>
+  <input type="hidden" class="invitedby" value={{sentBy.firstName}},{{sentBy.lastName}},{{sentBy.email}},{{invitedbyrole}}></input>
+  <input type="hidden" class="titles" value={{#each sendTo.titles}}{{#if @index}},{{/if}}{{this.name}}{{/each}}></input>
+</div>  
+</body>
+</html>

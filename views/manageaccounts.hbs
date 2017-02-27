@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Algolift</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/open-sans.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/sitestyles.css" type="text/css" />
+<script src="js/jquery.min.js"></script>
+
+<!-- <script src="js/selectize/jquery.js"></script> -->
+<script src="js/selectize/jqueryui.js"></script>
+<script src="js/selectize/selectize.js"></script>
+<script src="js/selectize/index.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+         <!-- Fixed navbar -->
+         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand algolift-logo" href="#"></a> </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li class="his_arpi"><a href="javascript:void(0);">Historical Source ARPI</a></li>
+                     <li><a href="/historical_platform_arpi">Historical Platform ARPI</a></li>
+                     <li class="dashboard_click dashboard_api_filter"><a href="javascript:void(0);">UA Dashboard</a></li>
+                     <li class="active dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{loggedInUser.firstName}} <span class="fa fa-angle-down"></span></a>
+                        <ul class="usersettings dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#" class="user setting userset">User Settings</a></li>
+                            {{#equal loggedInUser.role "Team Member"}}{{else}}
+                            <li><a href="#" class="manageacc">Manage Accounts</a></li>
+                           {{/equal}}
+                            <li><a href="#" class="logout">Logout</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.nav-collapse -->
+            </div>
+         </nav>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+               <div class="page-heading">
+                  <div class="invitemember pull-right">
+                  {{#equal loggedInUser.role "SuperAdmin"}}
+                     <button type="button" class="btn btn-invite  invitemembermodel" data-toggle="modal" data-target="#InviteTeamMemberModal">INVITE {{#equal loggedInUser.role "SuperAdmin"}}ACCOUNT MANAGER{{else}}TEAM MEMBER{{/equal}}</button>
+                  {{else}}
+
+                  {{#ifCond loggedInUser.totalInvited '<' 10}}                     
+                     <button type="button" class="btn btn-invite  invitemembermodel" data-toggle="modal" data-target="#InviteTeamMemberModal">INVITE {{#equal loggedInUser.role "SuperAdmin"}}ACCOUNT MANAGER{{else}}TEAM MEMBER{{/equal}}</button>
+                  {{else}}
+                     <button type="button" class="btn btn-invite" data-toggle="modal" data-target="#InviteModal">INVITE {{#equal loggedInUser.role "SuperAdmin"}}ACCOUNT MANAGER{{else}}TEAM MEMBER{{/equal}}</button>
+                  {{/ifCond}}
+                  
+                     <span class="seatsavailable">{{math loggedInUser.totalAllowedInvites '-' loggedInUser.totalInvited}} of {{loggedInUser.totalAllowedInvites}} Seats Available</span>
+                  {{/equal}} 
+                  </div>
+                  <h1>MANAGE ACCOUNTS</h1>
+                  <div class="clearfix"></div>
+               </div>
+               <div class="page-section">
+                  <div class="col-md-12 error-ma"></div>
+                  <form class="form-horizontal manageaccounts">
+                     <div class="col-md-2 usertype-width {{#equal loggedInUser.role "SuperAdmin"}}{{else}}disp-none{{/equal}}">
+                        <div class="form-group">
+                           <label class="col-md-2 labelname labelwidth-ut">User Type:</label>
+                           <div class="selectboxwidth"><div class="dropdown">
+                           <div class="dropdown">
+                              <button class="btn btn-dropdwn dropdown-toggle btn-width" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down pull-right pt-2"></span><span class="drop-text">All</span></button>
+                                 <ul class="usertype dropdown-menu userType" aria-labelledby="dropdownMenu1">
+                                 <li><a href="#" class="usertype">All</a></li>
+                                 {{#each roles}}
+                                 <li><a href="#" class="usertype">{{name}} </a></li>
+                                 {{/each}}
+                                 </ul>
+                           </div>
+                           </div>
+                        </div>
+                     </div>
+                     </div>
+
+                     <div class="col-md-2 userstatuswidth">
+                        <div class="form-group">
+                           <label class="col-md-2 labelname labelwidth-us">User status:</label>
+                           <div class="col-md-6">
+                              <div class="dropdown">
+                                 <button class="btn btn-dropdwn dropdown-toggle btn-width" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down pull-right pt-2"></span></span><span class="drop-text">All</button>
+                                 <ul class="userstatus-dd  dropdown-menu  chkdd status-dd usersdd" aria-labelledby="dropdownMenu2">
+                                    <li>
+                                       <div class="form-group">
+                                          <div class="icon-addon addon-md">
+                                             <input type="text" class="form-control" id="search">
+                                             <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <span class="list-hd">Selected Status</span>
+                                    <div class="scrollbar status-scrll-ht mCustomScrollbar" data-mcs-theme="dark" >
+                                       <li class="all-check userstatus">
+                                          <input type="checkbox" id="all-status" checked>
+                                          <label for="all-status"><strong>All</strong> </label>
+                                       </li>
+                                       <hr>
+                                       <li>
+                                          <input type="checkbox" id="active" class="userstatus">
+                                          <label for="active">Active</label>
+                                       </li>
+                                       <li>
+                                          <input type="checkbox" id="inactive" class="userstatus">
+                                          <label for="inactive">Inactive</label>
+                                       </li>
+                                       <li>
+                                          <input type="checkbox" id="invited" class="userstatus">
+                                          <label for="invited">Invited</label>
+                                       </li>
+                                    </div>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="col-md-4 regdatewidth {{#equal loggedInUser.role "SuperAdmin"}}{{else}}disp-none{{/equal}}">
+                        <div class="form-group">
+                           <label class="col-md-2 labelname regdatewidthlabel">reg date:</label>
+                           <div class="col-md-5 datecolumnwidth">
+                              <div class="form-group"> <span class="datestartend">Start</span>
+                                 <div class="input-group date form_date startdate" data-date="" data-date-format="M d, yyyy" data-link-field="dtp_input1" data-link-format="M d, yyyy">
+                                    <input class="form-control" size="16" type="text" id="startdate" value="{{dateFormat '01-01-2016' 'MMM D, YYYY'}}">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> </div>
+                                 <input type="hidden" id="dtp_input1" value="" />
+                              </div>
+                           </div>
+                           <div class="col-md-5 datecolumnwidth">
+                              <div class="form-group"> <span class="datestartend">End</span>
+                                 <div class="input-group date form_date enddate" data-date="" data-date-format="M d, yyyy" data-link-field="dtp_input2" data-link-format="M d, yyyy">
+                                    <input class="form-control" size="16" type="text" id="enddate" value="{{dateFormat now 'MMM D, YYYY'}}">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> </div>
+                                 <input type="hidden" id="dtp_input2" value="" />
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                      {{#equal loggedInUser.role "SuperAdmin"}}
+                        <div class="col-md-2 orgswidth">
+                        <div class="form-group">
+                           <label class="col-md-2 labelname orgslabelwidth">orgs:</label>
+                           <div class="col-md-6">
+                              <div class="dropdown">
+                                 <button class="btn btn-dropdwn dropdown-toggle btn-width" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down pull-right pt-2"></span> All </button>
+                                 <ul class="userstatus-dd postoprt dropdown-menu chkdd org-dd" aria-labelledby="dropdownMenu3">
+                                   <li>
+                                       <div class="form-group">
+                                          <div class="icon-addon addon-md">
+                                             <input type="text" class="form-control">
+                                             <label class="glyphicon glyphicon-search" title="Search"></label>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <span class="list-hd">Selected Organization</span>
+                                    <div class="scrollbar status-scrll-ht mCustomScrollbar" data-mcs-theme="dark" >
+                                       <li class="all-check">
+                                          <input type="checkbox" id="all-org" checked>
+                                          <label for="all-org"><strong>All</strong> </label>
+                                       </li>
+                                       <hr>
+                                    {{#each organizations}}
+                                    <li>
+                                          <input type="checkbox" id="{{removespecials name}}" class="organizations">
+                                          <label for="{{removespecials name}}">{{name}}</label>
+                                       </li>
+
+                                     {{/each}}
+
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     {{else}}
+                        <input type="hidden" id="dropdownMenu3" value="{{loggedInUser.organization}}" />
+                        
+                     {{/equal}}
+
+
+                     <div class="col-md-2 titlewidth" id="existingTitleData">
+                        <div class="form-group">
+                           <label class="col-md-2 labelname titlelabel">title:</label>
+                           <div class="col-md-6">
+                              <div class="dropdown dropdown-accordion" data-accordion="#countryaccordion">
+                                 <button class="btn btn-dropdwn dropdown-toggle btn-width" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="fa fa-angle-down pull-right pt-2"></span> All </button>
+                                 <ul class="userstatus-dd titledd-pos dropdown-menu" aria-labelledby="dropdownMenu4" id="titleName">
+                                    <li>
+                                       <div class="form-group">
+                                          <div class="icon-addon addon-md">
+                                             <input type="text" class="form-control title-search" id="search">
+                                             <label for="search" class="glyphicon glyphicon-search" title="Search"></label>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <span class="list-hd">Selected Titles</span>
+                                       {{#equal loggedInUser.role "SuperAdmin"}}
+                                          {{> manageaccadmintitles}}
+                                       {{else}}
+                                          {{> manageaccounttitle}}
+                                       {{/equal}}
+                                   
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <!--contact us modal-->
+                     <div class="modal fade" tabindex="-1" role="dialog" id="InviteTeamMemberModal">
+                        <div class="modal-dialog">
+                           <form  id="frmInvite">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="modal-close"></i></span></button>
+                                    <h4>INVITE {{#equal loggedInUser.role "SuperAdmin"}}ACCOUNT MANAGER{{else}}TEAM MEMBER{{/equal}}</h4>
+                                 </div>
+                                 <div class="error-message text-center mb-15 invite_form_error error pl-0"></div>
+                                 <div class="modal-body inviteteam">
+                                    <div class="form-group clearerrortext"> <span class="astrik">*</span>
+                                       <input type="email"  name="inviteemail" class="form-control" placeholder="Email"/>
+                                    </div>
+                                    {{#equal loggedInUser.role "SuperAdmin"}}
+                                    <div class="form-group inviteorg"> <span class="astrik">*</span>
+                                       <input type="text" name="inviteorg" class="input-tags demo-default modal-org" placeholder="Organization"/>
+                                    </div>
+                                    <div class="form-group inviteadmintitle"> <span class="astrik">*</span>
+                                       <input type="text" name="invitetitle" class="input-tags demo-default modal-admin-title" placeholder="Enter game titles for this member." />
+                                    </div>
+                                    {{else}}
+                                    <div class="form-group invitetitle"> <span class="astrik">*</span>
+                                       <input type="text" class="input-tags demo-default modal-title" placeholder="Enter game titles for this member." />
+                                    </div>
+                                    {{/equal}}               
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn modal-btn-signup clsinvite">INVITE</button>
+                                 </div>
+                              </div>
+                              <!-- /.modal-content -->
+                           </form>
+                        </div>
+                        <!-- /.modal-dialog -->
+                     </div>
+                     <div class="modal fade" tabindex="-1" role="dialog" id="InviteModal">
+                        <div class="modal-dialog">
+                           <form  id="frmInvite">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="modal-close"></i></span></button>
+                                    <h2></h2>
+                                 </div>
+                                 <div class="modal-body text-center">
+                                    <p class="no-invitation">No Invitations Left</p>
+
+                                 </div>
+                              </div>
+                              <!-- /.modal-content -->
+                           </form>
+                        </div>
+                        <!-- /.modal-dialog -->
+                     </div>
+                     <!-- /.modal -->
+                  </form>
+                  {{>manageaccountsgrid}}                  
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer>
+    {{>footer}}
+</footer>
+<div class="overlay"><div class="loader"></div></div> 
+
+{{#equal loggedInUser.role "SuperAdmin"}}
+<input type="hidden" class="loginuserrole" value='su'></input>
+{{else}}
+<input type="hidden" class="loginuserrole" value='am'></input>
+{{/equal}}
+<div class="loginuserorg" style="display:none;">{{loggedInUser.organization}}</div>
+<div class="loginusertitle" style="display:none;">{{loggedInUser.titles}}</div>
+<!--contact us modal ends-->
+<script src="js/manageaccount.js"></script>
+<script type="text/javascript">
+var isSuperAdmin = {{#equal loggedInUser.role "SuperAdmin"}} true {{else}} false {{/equal}};
+   var optns = {{#equal loggedInUser.role "SuperAdmin"}} [{{#each titles}}{{#if @index}},{{/if}}{key :'{{organization.name}}',value: '{{#each organization.titles}}{{#if @index}},{{/if}}{{this.name}}{{/each}}'}{{/each}}] {{else}} [{key :'{{loggedInUser.organization}}',value: '{{#each loggedInUser.titles}}{{#if @index}},{{/if}}{{this.name}}{{/each}}'}]{{/equal}};
+   var orgs = {{#equal loggedInUser.role "SuperAdmin"}} [{{#each organizations}}{{#if @index}},{{/if}}{'text':'{{name}}', 'value': '{{name}}'}{{/each}}] {{else}} [{'text':'{{loggedInUser.organization}}', 'value': '{{loggedInUser.organization}}'}] {{/equal}};
+if(isSuperAdmin)
+{
+   var titleDictionary = optns;
+
+}
+</script>
+<script src="js/manageaccount.selectize.js"></script>
+<!--jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- <script src="js/jquery.min.js"></script> -->
+<script src="js/jquery.cookie.js"></script>
+
+<script>window.jQuery || document.write('<script src="js/minified/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="js/jquery.validate.js"></script>
+<script src="js/site.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>

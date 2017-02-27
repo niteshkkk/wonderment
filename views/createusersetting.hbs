@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Algolift</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/open-sans.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/sitestyles.css" type="text/css" />
+
+
+</head>
+<body>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12"> 
+         <!-- Fixed navbar -->
+         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand algolift-logo" href="#"></a> </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li class="his_arpi"><a href="javascript:void(0);">Historical Source ARPI</a></li>
+                     <li><a href="/historical_platform_arpi">Historical Platform ARPI</a></li>
+                     <li class="dashboard_click"><a href="javascript:void(0);">UA Dashboard</a></li>
+                     <li class="active dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{loggedInUser.firstName}} <span class="fa fa-angle-down"></span></a> 
+                     <ul class="usersettings dropdown-menu" aria-labelledby="dropdownMenu1">
+                     <li><a href="#" class="user setting userset">User Settings</a></li>
+                            {{#equal loggedInUser.role "Team Member"}}{{else}}
+                            <li><a href="#" class="manageacc">Manage Accounts</a></li>
+                           {{/equal}}
+                            <li><a href="#" class="logout">Logout</a></li>
+                       
+                         
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.nav-collapse --> 
+            </div>
+         </nav>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+               <div class="page-heading">
+                  <h1>USER SETTINGS</h1>
+               </div>
+               <div class="page-section">
+                  <h2>account information:</h2>
+                  <form class="form-horizontal">
+                     <div class="form-group">
+                        <label class="col-md-1 label-width control-label">First Name:</label>
+                        <div class="col-md-3">
+                           <input type="text" value="{{loggedInUser.firstName}}" class="form-control"/>
+                        </div>
+                     </div>
+                      <div class="form-group">
+                        <label class="col-md-1 label-width control-label">Last Name:</label>
+                        <div class="col-md-3">
+                           <input type="text" value="{{loggedInUser.lastName}}" class="form-control"/>
+                        </div>
+                     </div>
+                      <div class="form-group">
+                        <label class="col-md-1 label-width control-label">Email Address:</label>
+                        <div class="col-md-3">
+                           <span class="normal-text" id="emailchangepwd">{{loggedInUser.email}}</span>
+                        </div>
+                     </div>
+                      <div class="form-group">
+                        <label class="col-md-1 label-width control-label">Organization:</label>
+                        <div class="col-md-3">
+                           <span class="normal-text">{{loggedInUser.organization}}</span>
+                        </div>
+                     </div>
+                        <div class="form-group">
+                        <label class="col-md-1 label-width control-label">Password:</label>
+                        <div class="col-md-3">
+                           <span class="normal-text">*********</span>
+                        </div>
+                     </div>
+                        <div class="form-group">
+                        <label class="col-md-1 label-width control-label"></label>
+                        <div class="col-md-3">
+                           <a href="#" class="normal-text changepassword  changepwdclrmodel" data-toggle="modal" data-target="#ChangePwdModal">Change Password</a>
+                        </div>
+                     </div>
+                      <hr>
+                      <div class="assignedtitles">
+                        <h2>ASSIGNED TITLES:</h2>
+                          <ul class="assignedtitleslist">
+                              {{#each loggedInUser.titles}}
+                                    <li>{{name}}</li>
+                                     {{/each}}
+                          </ul>
+                      </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer>
+     {{>footer}}
+</footer>
+    
+<!--change password modal-->
+<div class="modal fade" tabindex="-1" role="dialog" id="ChangePwdModal">
+   <div class="modal-dialog">
+      <form id="frmchangepwd" class="form-horizontal">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="modal-close"></i></span></button>
+               <h4>CHANGE PASSWORD</h4>
+            </div>
+            <div class="error-message text-center mb-15 changepwd_form_error cp-error"></div>
+            <div class="modal-body">               
+               <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-10">
+                  <input type="password" id="oldpassword" class="form-control" name="oldpwd" placeholder="Old Password"/>
+                  </div>
+               </div>
+               <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-10">
+                  <input type="password" id="password" class="form-control changepwdprogress" name="newpwd" placeholder="New Password"/>
+                  </div>
+               </div>
+               <div class="progressChangepwd">
+                     
+                  </div>
+                <div class="form-group">
+                <label class="astrik-width control-label">*</label>
+               <div class="col-sm-10">
+                  <input type="password" id="newpassword" class="form-control" name="confirmpwd" placeholder="Confirm Password"/>
+                  </div>
+               </div> 
+                <div class="password-requirements" style="margin-bottom: 30px;">
+                           <p>Password Requirements</p>
+                           <ul>
+                              <li>Include both lower and upper case characters.</li>
+                              <li>Include at least one number or symbol.</li>
+                              <li>Be at least 8 characters long.</li>
+                           </ul>
+                           
+                        </div>    
+                
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn modal-btn-signup clschangepwd">SUBMIT</button>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </form>
+   </div>
+   <!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
+<!--change password modal ends-->   
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.cookie.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.validate.js"></script>
+<script src="js/site.js"></script>
+
+</body>
+</html>

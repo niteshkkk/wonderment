@@ -1,0 +1,241 @@
+div.error {    
+    padding-left: 0px;
+    color: #ff7e2d;
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+.login_form_errormessage{
+    color: #ff7e2d;
+    font-size: 13px;
+}
+
+.registrationform div.error {
+    margin-left: 9%;
+}
+
+.registrationform .phone {
+    background: transparent;
+    border: solid 1px #fff;
+    color: #fff;
+    display: inline-block;
+    width: 86%;
+    margin-left: 9% !important;
+}
+
+div.cp-error {    
+    padding-left: 0px;
+    color: #ff7e2d;
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+label.error {    
+    padding-left: 28px;
+    color: #ff7e2d;
+    font-size: 13px;
+}
+
+.password-verdict {    
+    padding-left: 28px;
+    font-size: 13px;
+}
+.floatinher {
+	float: inherit;
+
+}
+.pl-0 {
+	padding-left: 0px !important;
+
+}
+.pt-47 {
+    padding-top:47px;
+
+}
+.selectize-control {
+    min-height: 31px;
+}
+
+.modal .progress {
+    background: transparent;
+    border-radius: 0px;
+    width: 100%;
+    height: 14px;
+}
+.modal .progress .progress-bar {
+    line-height: inherit;
+    font-size: 9px;
+}
+.modal .progress .progress-bar-danger {
+    background: #6ca8b8;
+}
+.modal .progress .progress-bar-success {
+    background: #6097a5;
+}
+.modal .progress .progress-bar-warning {
+    background: #288199;
+}
+.no-invitation {
+    margin:-30px 0px;
+    font-weight: bold;
+
+}
+.thanks-msg {margin: -15px -30px 0px;
+    color: #1e505c;
+    font-weight: 600;}
+.disp-none {display: none;}
+.report-title-hd .compulsory-field {
+    color: #ff7e2d;
+    font-size: 12px;
+    border: solid 1px #f5f5f5;
+    border-radius: 4px;
+    padding: 5px;
+    font-style: italic;
+    display: inline-block;
+
+}
+
+.loader {
+  position: fixed;
+  z-index: 999;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: url(../images/loader.gif) no-repeat #f5f5f5 center center;
+  height: 80px;
+  width: 80px;
+  border-radius: 8px;
+}
+
+/* Transparent Overlay */
+.overlay {
+  content: '';
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+.info-icn{
+  color: #bebebe;
+}
+.info-icn-f{
+  color: #bebebe;
+  float: left;
+  padding-top: 9px;
+}
+.info-icn-p{
+  color: #bebebe;
+}
+
+.info-icn + .tooltip > .tooltip-inner {
+  background-color: #6ea8b7;
+  color: #1e4f5d;
+  font-size: 14px;
+  min-width: 310px;
+}
+
+.info-icn-f + .tooltip > .tooltip-inner {
+  background-color: #6ea8b7;
+  color: #1e4f5d;
+  font-size: 14px;
+  min-width: 310px;
+}
+
+.info-icn-p + .tooltip > .tooltip-inner {
+  background-color: #6ea8b7;
+  color: #1e4f5d;
+  font-size: 14px;
+}
+
+.info-icn + .tooltip.top > .tooltip-arrow {
+  border-top: 5px solid #6ea8b7;
+}
+
+.info-icn-f + .tooltip.bottom > .tooltip-arrow {
+  border-bottom: 5px solid #6ea8b7;
+}
+
+.info-icn-p + .tooltip.top > .tooltip-arrow {
+  border-top: 5px solid #6ea8b7;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+  background: none;
+  color: #ff7e2d;
+}
+
+.inviteorg .selectize-input, .selectize-control.single .selectize-input.input-active {
+    background: none !important;
+}
+.inviteadmintitle .selectize-input, .selectize-control.single .selectize-input.input-active {
+    background: none !important;
+}
+
+.inviteorg .selectize-control.multi .selectize-input [data-value] {
+    background-color: #fff2ea!important;
+    border: solid 1px #c5c5c5;    
+    color: #4c94a5;
+    background-image: none!important;
+    border-radius: 0px!important;
+    text-shadow: none!important;
+    box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    margin: 0px 5px 5px 0px;
+}
+
+.inviteadmintitle .selectize-control.multi .selectize-input [data-value] {
+    background-color: #fff2ea!important;
+    border: solid 1px #c5c5c5;    
+    color: #4c94a5;
+    background-image: none!important;
+    border-radius: 0px!important;
+    text-shadow: none!important;
+    box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    margin: 0px 5px 5px 0px;
+}
+.navbar-default .navbar-nav > li > a > i {
+  font-size: 22px;
+  margin-right: 10px;
+
+} 
+
+.redclr {
+  color: #ff7e2d;
+  display: block;
+
+}
+
+.error-link {
+    color: #ff7e2d;
+}
+
+a.error-link:hover{
+  color: #ff7e2d;
+}
+
+/*class for manage account error messsage*/
+.error-ma{
+    margin-bottom: 25px;
+    text-align: center;
+    font-style: italic;
+    color: #ff7e2d;
+    font-size: 12px;
+
+}
+
+.active-country{
+  background: #fff2ea;
+  color: #474747;
+}
+
+.country-li-width li:hover {cursor: pointer;}

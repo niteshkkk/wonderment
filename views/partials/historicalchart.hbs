@@ -1,0 +1,189 @@
+<div id="container"></div>
+<script type="text/javascript">
+  $(function () {
+        var chartTitle = {{#if nodata}}''{{else}}'Historical ARPI: {{usertitledetails.firstTitle}}'{{/if}};
+        var chartSubTitle = {{#if nodata}}''{{else}}'{{#equal paltformvaluetodisplay "All"}}All Platforms{{else}}{{paltformvaluetodisplay}}{{/equal}} | {{#equal countryvaluetodisplay "All"}}All Countries{{else}}{{countryvaluetodisplay}}{{/equal}} | {{dateMinChart}} -  {{dateMaxChart}}' {{/if}};
+        var categories = [{{#each chartdata.categories}}{{#if @index}},{{/if}}'{{formatDate this}}'{{/each}}];
+        {{#hbslogger 'Creating Series'}}{{/hbslogger}}
+        var series = [
+        {{#each chartdata.series}}
+            {{#if @index}},{{/if}} 
+            {
+                name: '{{name}}', 
+                data: [
+                    {{#each data}} 
+                        {{#if @index}},{{/if}} 
+                        {{#if this}} 
+                            {
+                                y: {{#if arpi}}{{arpi}}{{else}}null{{/if}}, 
+                                organic: {{#if organic}}{{organic}}{{else}}null{{/if}}, 
+                                users: {{#if users}}{{users}}{{else}}null{{/if}}
+                            }
+                        {{else}}
+                            null
+                        {{/if}}
+                    {{/each}}
+                ],
+                visible: {{display}}
+            }
+        {{/each}}
+        ];
+        {{#hbslogger 'Series Created'}}{{/hbslogger}}
+
+        Highcharts.setOptions({
+          credits: { enabled: false },
+          lang: {noData: "No data to display. Please adjust your settings to view available data."},
+          chart: {
+              style: {
+                  fontFamily: '"Open Sans", sans-serif',
+                  fontSize: '14px'
+              }
+          },
+          colors: [
+                  '#ff0400','#ff8d41','#ffeb00','#7af66f','#0067b7','#4900fd','#e7e7e7','#fcdab5','#c4ff24','#00f4cf',
+                  '#ff7371','#fda662','#e3da72','#90de89','#86bef3','#a38ed7','#d1d3d4','#d9ac7b','#c4e372','#72e3d2',
+                  '#ef434e','#af4300','#e0b640','#96bb93','#2d94f6','#a86f96','#a7a9ac','#ac6534','#a2d223','#32887b',
+                  '#be2027','#cb600e','#bfaf10','#39a21d','#237bbc','#581f99','#808285','#815512','#6f880d','#109986',
+                  '#6c0004','#ffb515','#edd700','#135b00','#074f84','#290057','#000000','#513100','#4f6300','#00584c'
+                ]
+        });
+
+        $('#container').highcharts({
+            chart: {
+                type: 'line',
+                //width: null,
+                height: 500,
+                spacingBottom: 50,
+                spacingTop: 30,
+                marginBottom: 100,
+                marginTop: 75
+            },
+            legend: {
+                symbolHeight: 16,
+                symbolWidth: 16,
+                symbolRadius: 8,
+                symbolPadding: 8,
+                padding: 13,
+                itemMarginTop: 10,
+                itemMarginBottom: 10,
+                itemStyle: {
+                    color: '#474747',
+                    fontSize: 12,
+                    fontWeight: 600
+                },
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: 0,
+                y: 0,
+                navigation: {
+                    activeColor: '#2c8595',
+                    animation: true,
+                    arrowSize: 12,
+                    inactiveColor: '#CCC',
+                    style: {
+                        fontWeight: 600,
+                        color: '#474747',
+                        fontSize: '12px'
+                    }
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            title: {
+                text: chartTitle,
+                style: {
+                    color: '#1e505d',
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                }
+            },
+            subtitle: {
+                text: chartSubTitle,
+                style: {
+                    color: '#1e505d',
+                    fontSize: 14
+                }
+            },
+            xAxis: {
+                categories: categories,
+                title: {
+                    text: 'Cohort Date',
+                    style: {
+                        color: '#1e505d',
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    }
+                },
+                labels: {
+                    style: {
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: '#000000'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Historical ARPI($)',
+                    style: {
+                        color: '#1e505d',
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    }
+                },
+                labels: {
+                    style: {
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: '#474747'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: '#6ea8b6',
+                borderColor: '#6ea8b6',
+                headerFormat: '<div style=" background: #6ea8b6;border-radius:4px; padding:0px 5px;"><div style="color:#1e505d; font-size:11px; margin-bottom:2px;">{point.x}</div>',
+                pointFormat: '<div style="color:#1e505d; font-size:13px; font-weight:600; margin-bottom:2px;">Projected ARPI<span style="display:block; color:#fff;">${point.y:.2f}</span></div><div style="color:#1e505d; font-size:13px; font-weight:600; margin-bottom:2px;">{{Historicaltype}}<span style="display:block; color:#fff;">{point.series.name}</span></div></div>',
+                shared: false,
+                useHTML: true,
+                positioner: function (labelWidth, labelHeight, point) {
+                    var tooltipX, tooltipY;
+                    if (point.plotX + labelWidth > this.chart.plotWidth) {
+                        tooltipX = point.plotX + this.chart.plotLeft - labelWidth - 20;
+                    } else {
+                        tooltipX = point.plotX + this.chart.plotLeft + 20;
+                    }
+                    tooltipY = point.plotY + this.chart.plotTop - 20;
+                    return {
+                        x: tooltipX,
+                        y: tooltipY
+                    };
+                }
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                },
+                series: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            noData:{
+                style:{
+                    color: '#1e505d',
+                    fontFamily: '"Open Sans", sans-serif',
+                    fontSize: 14,
+                    fontWeight: 'normal'
+                }
+            },
+            series: series
+        });
+    });
+</script>

@@ -1,0 +1,49 @@
+<div class="table-sort pull-right">
+   <form class="form-inline table-pagination">
+      <div class="form-group">
+         <label>Show rows:</label>
+         <select class="form-control">
+            
+            <option {{#equal pagesize "10"}} selected{{/equal}}>10</option>
+            <option {{#equal pagesize "15"}} selected{{/equal}}>15</option>
+            <option {{#equal pagesize "20"}} selected{{/equal}}>20</option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label>Go to page:</label>
+         <input class="form-control txtpagenumber" type="text" value="1"/>
+          <label class="mrgn-lft" id="pagecount">{{totalresult}}</label>
+      </div>
+      <div class="btn-group" data-toggle="buttons" id="pagingarrows">
+         <label class="btn btn-default" onclick='gridPrevious()'>
+            <input type="checkbox" name="backcheck" id="" value="">
+            <i class="glyphicon glyphicon-menu-left"></i> </label>                        
+         <label class="btn btn-default" onclick='gridNext()'>
+            <input type="checkbox" name="frontcheck" id="" value="">
+            <i class="glyphicon glyphicon-menu-right"></i> </label>
+      </div>
+   </form>
+</div>
+<div class="clearfix"></div>
+<div class="table-responsive">
+   <table width="100%" cellspacing="0" cellpadding="0" class="table table-striped manage-accounts-table" >
+      <thead>
+         <tr>
+            <th>Platform</th>
+            <th>Source</th>
+            <th>Horizon  <i class="fa fa-info-circle info-icn" data-toggle="tooltip" data-placement="top" title="The horizon represents the number of days after acquisition revenue is being projected."></i></th>
+            <th>Country</th>
+            <th>Projected ARPI <i class="fa fa-info-circle info-icn-p" data-toggle="tooltip" data-placement="top" title="Average Revenue Per Install"></i></th>
+            <th>Player Count</th>
+            <th>Payer Count</th>
+            <th>Cohort Date</th>
+         </tr>
+      </thead>
+      {{>dashboardGridBody}}
+   </table>
+ 
+</div>
+<script>
+totalPages={{totalPages}};
+  gridCurrentIndex = 1;
+</script>

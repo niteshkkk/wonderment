@@ -1,0 +1,59 @@
+ <form class="form-horizontal manageaccounts platform-source mt-40">
+   <div class="platform-sources"> 
+      <!--platform starts-->
+       <!--cohort date starts-->
+      <div class="col-md-4 cohortwidth">
+         <div class="form-group">
+            <label class="col-md-2 labelname cohortdate-width">cohort date:</label>
+            <div class="col-md-5 datecolumnwidth date-col-width">
+               <div class="form-group"> <span class="datestartend">Start</span>
+                 <div class="input-group date form_date" data-date="" data-date-format="M d, yyyy" data-link-field="dtp_input2"  data-link-format="yyyy-mm-dd" id="cohortStartDate">
+                     <input class="form-control" size="16" type="text" value="" id="txtcohortStartDate">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                     <input type="hidden" id="dtp_input2" value="{{dateMinChart}}" />
+                  </div>                                    
+               </div>
+            </div>                             
+
+            <div class="col-md-5 datecolumnwidth date-col-width">
+            <div class="form-group"> <span class="datestartend">End</span>
+               <div class="input-group date form_date" data-date="" data-date-format="M d, yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" id="cohortEndDate" >
+                     <input class="form-control" size="16" type="text" value="" id="txtcohortEndDate">
+                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> </div>
+                     <input type="hidden" id="dtp_input3" value="{{dateMaxChart}}" />
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="filterDashBoard">
+            {{> filterDashBoard}}
+      </div>                 
+      <div class="clearfix"></div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-12"> 
+         <!--horizon starts-->
+         <div class="horizon"> <span class="horizon-hd">Horizon:</span> <a href="javasript:void(0);" class="exportcsv pull-right"><i class="export-csv"></i> Export to CSV</a>
+            <div class="btn-group" data-toggle="buttons">
+            {{#each horizon_value}}
+              <label class="btn btn-default {{#if selected}} active{{/if}}">
+              <input type="radio" name="Horizon" id="{{value}}days" value="{{value}} Days" {{#if selected}} checked="checked" {{/if}}>
+              {{value}} Days </label>
+            {{/each}}                                
+            </div>
+            <i class="fa fa-info-circle info-icn-f" data-toggle="tooltip" data-placement="bottom" title="The horizon represents the number of days after acquisition revenue is being projected."></i>
+            {{#equal charttype "line"}}
+            {{else}}
+              <span class="seprator"></span>
+              <span class="organic-lift">ORGANIC LIFT 
+              <i class="fa fa-check"></i></span>                        
+              <label for="organicLift" class="ml" ></label>
+            {{/equal}}
+            <div class="clearfix"></div>
+         </div>
+         <!--horizon ends--> 
+      </div>
+   </div>
+   <!--horizon ends-->                        
+</form>

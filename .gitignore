@@ -1,0 +1,8 @@
+/node_modules/
+/jsondata/
+/public/download
+/db.js
+/.DS_Store
+/.idea
+/Vagrantfile
+/.vagrant

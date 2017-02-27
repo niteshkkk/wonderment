@@ -1,0 +1,18 @@
+ <tbody id="tbldashboardapifilterdata">
+      {{#each bindgrid}}
+         <tr>      
+            <td>{{platform}}</td>
+            <td>{{Source}}</td>
+            <td>{{window}} Days </td>
+            <td>{{country}}</td>
+            <td> $ {{#if ProjectedARPI}}{{ProjectedARPI}}{{else}}0{{/if}}</td>
+            <td>{{PlayerCount}}</td>
+            <td>{{PayerCount}}</td>
+            <td>{{formatDate ProjectionDate}}</td>
+         </tr>
+      {{else}}
+         <tr>
+            <td colspan="8" class="text-center"> No data to display. Please adjust your settings to view available data.</td>
+         </tr>
+      {{/each}}
+      </tbody>

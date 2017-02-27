@@ -1,0 +1,13 @@
+
+{{#equal charttype "line"}}
+	{{>historicalchart}}
+	<div id="histgridmain">
+	
+	</div>
+{{else}}	
+	{{>dashboardchart}}
+	<div id="dashgridmain">
+	
+	</div>
+	
+{{/equal}}

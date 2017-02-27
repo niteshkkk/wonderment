@@ -1,0 +1,71 @@
+<form>
+<div class="table-responsive usertable">
+   <table width="100%" cellspacing="0" cellpadding="0" class="table table-striped manage-accounts-table">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Email</th>
+            
+            {{#equal loggedInUser.role "SuperAdmin"}}
+            <th>Registration Date</th>
+            <th>Organization</th>
+            {{/equal}}
+
+            <th>App Title</th>
+            <th>Status</th>
+         </tr>
+      </thead>
+      <tbody>
+      {{#if gridData.message}}
+         <tr>
+            <td colspan="6">
+               <div class="text-center">{{gridData.message}}</div>
+            </td>
+         </tr>
+      {{else}} 
+         {{#each gridData.users}}
+         <tr>
+            <td class="name">{{firstName}} {{#equal role "Account Manager"}}<a href="javascript:void(0);" class="tooltips"><i class="diamond-icn1"></i><span>Account Manager</span></a>{{/equal}}</td>
+            <td class="email"><a href="javascript:void(0);">{{email}}</a></td>
+            
+            {{#equal @root.loggedInUser.role "SuperAdmin"}}
+            <td>{{#if registrationDate}}{{dateFormat registrationDate 'MM-DD-YYYY'}}{{/if}}</td>
+            <td class="org">{{organization}}</td>
+	    {{/equal}}
+            <td><input type="text" class="input-tags demo-default grid-title dlt"  name="addtitle" value="{{#each titles}}{{#if @index}},{{/if}}{{this.name}}{{/each}}"></input></td>
+            {{#if status}}
+               {{#equal status "Invited"}}
+                  <td>Invited</td>
+               {{else}}
+                  <td class="dropdown active-list">
+                     <a href="javasript:void(0);" class="dropdown-toggle status-dd" id="status-dd-{{@index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{status}} <i class="fa fa-angle-down"></i></a>
+                     <ul class="active-inactive dropdown-menu" aria-labelledby="status-dd-{{@index}}">
+                        <li><a href="javascript:void(0);" class="status">Active</a></li>
+                        <li><a href="javascript:void(0);" class="status">Inactive</a></li>                                    
+                     </ul>
+                  </td>
+               {{/equal}}
+            {{/if}}
+         </tr>
+         {{/each}}
+         {{#each gridData.invites}}
+         <tr>
+            <td>-</td>
+            <td class="email"><a href="javascript:void(0);">{{sendTo.email}}</a></td>
+
+            {{#equal @root.loggedInUser.role "SuperAdmin"}}
+            <td>-</td>
+            <td class="org">{{sendTo.organization}}</td>
+            {{/equal}}
+
+            <td>
+               <input type="text" class="input-tags demo-default grid-title dlt" name="addtitle" value="{{#each sendTo.titles}}{{#if @index}},{{/if}}{{this.name}}{{/each}}">
+            </td>
+            <td class="invite">Invited</td>
+         </tr>
+         {{/each}} 
+      {{/if}}                         
+      </tbody>
+   </table>                  
+</div>
+</form>

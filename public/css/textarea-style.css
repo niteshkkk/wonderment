@@ -1,0 +1,112 @@
+.content{
+	overflow: auto;
+	position: relative;	
+	-webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+.content.hidden{ display: none; }
+
+.content textarea{
+	min-height: 80px;
+	width: 70%;
+}
+
+.textarea-example .content{ width: 360px; }
+
+.textarea-example .content form{ margin: 25px 0 15px 0; }
+
+.textarea-example .content textarea, .textarea-example .textarea-clone{
+	width: 300px;
+	padding: 0 10px;
+	line-height:25px;
+	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+.textarea-example .content textarea{
+	height:160px; 
+	resize:none; 
+	overflow:hidden; 
+	outline:none;
+	margin: 0;
+	border:none;
+	background:transparent;
+	box-shadow: none;
+}
+
+.textarea-example .content .textarea-wrapper{
+	height:200px; 
+	overflow:hidden;
+    border: solid 1px #1e505d;
+    margin-bottom: 15px;
+    border-radius: 4px;
+	
+}
+
+.textarea-example .textarea-clone{
+	position:absolute; 
+	top:-9999px; 
+	left:-9999px; 
+	visibility:hidden; 
+	min-height: 160px; 
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+.textarea-example .content .textarea-wrapper .mCSB_scrollTools_vertical{ display: block !important; border-left:solid 1px #1e505d;}
+
+.mCSB_dragger {height: 30px !important;}
+
+.scrollTo-demo .content{ height: 290px; }
+
+.scrollTo-demo .demo-y{ height: 600px; }
+
+.scrollTo-demo .demo-x{
+	width: 660px;
+	background-color: #252525;
+}
+
+.scrollTo-demo .demo-x p{
+	float: left;
+	width: 300px;
+	margin-left: 30px;
+	height: auto;
+	padding: 5px 10px;
+	background-color: #333;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+}
+
+.scrollTo-demo .demo-x hr + p{ margin-left: 0; }
+
+.scrollTo-demo .demo-yx{ background-color: #424242; }
+
+.scrollTo-demo .demo-yx p{ width: 1000px; }
+
+.scrollTo{ font-size: 12px; }
+
+.scrollTo + .scrollTo{ margin-top: 20px; }
+
+.scrollTo ul li:first-child span{
+	display: block;
+	padding: 3px 15px;
+}
+
+#test-id{
+	background-color: #eb3755;
+	color: #fff;
+}
+.mCS-dark-3.mCSB_scrollTools .mCSB_draggerRail {
+    background: #fff;
+}
+.mCS-dark-3.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar, .mCS-dark-3.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar:hover {
+    background: #1e505d;
+    width: 10px;
+    
+}
+.mCSB_scrollTools .mCSB_draggerContainer {
+ left: 0px;
+}
+.mCSB_scrollTools {
+    width: 16px;
+}

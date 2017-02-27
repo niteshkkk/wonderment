@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "algolift-App-Server",
+      "script": "/opt/algolift/algo-lift/bin/www",
+      "instances": 1,
+      "node_args": "--max_old_space_size=2048",
+      "env": {
+        "NODE_ENV": "prod",
+        "PORT": "3000",
+      }
+    }
+  ]
+}

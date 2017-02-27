@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Algolift</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="css/textarea-style.css"/>
+<link rel="stylesheet" href="css/sitestyles.css" type="text/css" />
+<link rel="stylesheet" href="css/open-sans.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12"> 
+         <!-- Fixed navbar -->
+         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand algolift-logo" href="#"></a> </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li class="his_arpi"><a href="javascript:void(0);">Historical Source ARPI</a></li>
+                     <li><a href="/historical_platform_arpi">Historical Platform ARPI</a></li>
+                     <li class="dashboard_click dashboard_api_filter"><a href="javascript:void(0);">UA Dashboard</a></li>
+                     <li class="active dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{loggedInUser.firstName}} <span class="fa fa-angle-down"></span></a>
+                        <ul class="usersettings dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#" class="user setting userset">User Settings</a></li>
+                            {{#equal loggedInUser.role "Team Member"}}{{else}}
+                            <li><a href="#" class="manageacc">Manage Accounts</a></li>
+                           {{/equal}}
+                            <li><a href="#" class="logout">Logout</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.nav-collapse --> 
+            </div>
+         </nav>
+      </div>
+   </div>
+   <div class="content-container">
+      <h1>We're here for you!</h1>
+      <div class="content-section plr-15">
+         <p>We'd love to hear any feedback or answer any questions you may have. The AlgoLift is ready to help in any way we can!</p>
+         <p>Just give us a little information about what you're looking for, and the right person will be in touch with you shortly.</p>
+         <p><strong>AlgoLift Headquarters</strong> <span>401 Wilshire Blvd. 12th Floor</span> <span>Santa Monica, CA 90401</span> </p>
+          
+         
+         <div class="contact-form contacthide" >
+         
+         
+         <div class="contact_form_errormessage mb-15 cp-error"></div>
+            <h2>Contact Us</h2> 
+            <div class="contact-thanku">
+            {{>thanku}}
+            
+         </div>
+            <div id="contacthide">            
+            <form class="form-horizontal" id="contactform">
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="First Name" name="Fname">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="Last Name" name="Lname">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4">
+                  <input type="email" class="form-control" placeholder="Email" name="contactemail">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label"></label>
+               <div class="col-sm-4">
+                  <input type="tel" class="form-control" placeholder="Phone Number" name="mobnumber">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="Company Name" name="comapnyname">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4 pdngtop"> Contact Us - Options
+                  <div class="radio mt-9">
+                     <input type="radio" name="optionsContact" id="radio1" value="Sales" checked>
+                     <label for="radio1"> Sales </label>
+                  </div>
+                  <div class="radio">
+                     <input type="radio" name="optionsContact" id="radio2" value="Customer Service">
+                     <label for="radio2"> Customer Service </label>
+                  </div>
+                  <div class="radio">
+                     <input type="radio" name="optionsContact" id="radio3" value="Careers">
+                     <label for="radio3"> Careers </label>
+                  </div>
+                  <div class="radio">
+                     <input type="radio" name="optionsContact" id="radio4" value="Press">
+                     <label for="radio4"> Press </label>
+                  </div>
+                  <div class="radio">
+                     <input type="radio" name="optionsContact" id="radio5" value="Other">
+                     <label for="radio5"> Other </label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label">*</label>
+               <div class="col-sm-4">
+                  <div>
+                     <section class="textarea-example"> 
+                        
+                        <!-- content -->
+                        <div class="content">
+                           <!-- wrap textarea in a .textarea-wrapper div -->
+                           <div class="textarea-wrapper">
+                              <textarea class="form-control" id="message" placeholder="Message" name="msg"></textarea>
+                              <!-- add an extra .textarea-clone div -->
+                              <div class="textarea-clone"></div>
+                           </div>
+                        </div>
+                     </section>
+                     <div id="error-msg"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="astrik-width control-label"></label>
+               <div class="col-sm-4">
+                  <button type="button" class="btn getstarted-btn contactbtn" id="contactbutton" >SUBMIT</button>
+               </div>
+            </div>
+            </form>
+         </div></div>
+      </div>
+   </div>
+</div>
+<footer>
+   {{>footer}}
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.cookie.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/bootstrap.min.js"></script> 
+<script>window.jQuery || document.write('<script src="js/minified/jquery-1.11.0.min.js"><\/script>')</script> 
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/jquery.validate.js"></script> 
+<script src="js/contactscript.js"></script> 
+
+<script src="js/site.js"></script>
+<script>
+		(function($){
+			$(window).on("load",function(){
+				
+				var textareaLineHeight=parseInt($(".textarea-wrapper textarea").css("line-height"));
+				
+				$(".textarea-wrapper").mCustomScrollbar({
+scrollEasing:"easeOutCirc",  
+      mouseWheel:"auto",
+             theme:"dark-3",
+      
+      alwaysShowScrollbar:1,   
+      autoDraggerLength:true, 
+      //autoHideScrollbar:true,  
+      advanced:{  
+        updateOnBrowserResize:true,   
+        updateOnContentResize:true   
+      } 
+
+      // removed extra commas  
+					//scrollInertia:0,
+         // autoHideScrollbar:0,
+          //alwaysShowScrollbar:0,
+          //autoDraggerLength:true,
+					// theme:"dark-3",
+					// advanced:{
+     //        //autoScrollOnFocus:false,
+     //       updateOnBrowserResize:true,   
+     //    updateOnContentResize:true },
+					// keyboard:{enable:false},
+					//snapAmount:textareaLineHeight
+				});
+				
+				var textarea=$(".textarea-wrapper textarea"),textareaWrapper=$(".textarea-wrapper"),textareaClone=$(".textarea-wrapper .textarea-clone");
+				
+				textarea.bind("keyup keydown",function(e){
+        			var $this=$(this),textareaContent=$this.val(),clength=textareaContent.length,cursorPosition=textarea.getCursorPosition();
+					textareaContent="<span>"+textareaContent.substr(0,cursorPosition)+"</span>"+textareaContent.substr(cursorPosition,textareaContent.length);
+					textareaContent=textareaContent.replace(/\n/g,"<br />");
+        			textareaClone.html(textareaContent+"<br />");
+        			$this.css("height",textareaClone.height());
+					var textareaCloneSpan=textareaClone.children("span"),textareaCloneSpanOffset=0,
+						viewLimitBottom=(parseInt(textareaClone.css("min-height")))-textareaCloneSpanOffset,viewLimitTop=textareaCloneSpanOffset,
+						viewRatio=Math.round(textareaCloneSpan.height()+textareaWrapper.find(".mCSB_container").position().top);
+					if(viewRatio>viewLimitBottom || viewRatio<viewLimitTop){
+						if((textareaCloneSpan.height()-textareaCloneSpanOffset)>0){
+							textareaWrapper.mCustomScrollbar("scrollTo",textareaCloneSpan.height()-textareaCloneSpanOffset-textareaLineHeight);
+						}else{
+							textareaWrapper.mCustomScrollbar("scrollTo","top");
+						}
+					}
+    			});
+    			
+    			$.fn.getCursorPosition=function(){
+        			var el=$(this).get(0),pos=0;
+        			if("selectionStart" in el){
+            			pos=el.selectionStart;
+        			}else if("selection" in document){
+            			el.focus();
+            			var sel=document.selection.createRange(),selLength=document.selection.createRange().text.length;
+            			sel.moveStart("character",-el.value.length);
+            			pos=sel.text.length-selLength;
+        			}
+        			return pos;
+    			}
+				
+			});
+		})(jQuery);
+	</script>
+  <script src="js/jquery.validate.js"></script>
+<script src="js/site.js"></script>
+
+</body>
+</html>

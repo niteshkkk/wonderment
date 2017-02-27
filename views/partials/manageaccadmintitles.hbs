@@ -1,0 +1,30 @@
+                                    <div class="scrollbar mCustomScrollbar" data-mcs-theme="dark" >
+                                       <li class="all-check">
+                                          <input type="checkbox" id="all-title" checked>
+                                          <label for="all-title"><strong>All</strong> </label>
+                                       </li>
+                                       <div class="panel-group mt-10" id="accordion">
+                                          {{#each titles}}
+                                          <div class="panel panel-default" name="{{removespecials organization.name}}">
+                                             <div class="panel-heading panel-clr on">
+                                                <h4 class="panel-title"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#org{{@index}}">{{organization.name}}</a></h4>
+                                             </div>
+                                             <div id="org{{@index}}" class="panel-collapse collapse in">
+                                                <div class="acc-panel-body">
+                                                   <ul class="citylists title-dd">
+                                                      {{#each organization.titles}}
+                                                      <li>
+                                                         <input type="checkbox" id="title{{removespecials name}}" class="titles">
+                                                         <label for="title{{removespecials name}}">{{name}}</label>
+                                                      </li>
+                                                      {{/each}}
+                                                   </ul>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          {{/each}}
+                                       </div>
+                                       <div class="panel-group mt-10" id="accordion1" style="display: none;">
+
+                                       </div>
+                                    </div>

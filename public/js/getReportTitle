@@ -1,0 +1,579 @@
+$(document).ready(function(){
+
+  $('.clsinvite').click(function(){
+    console.log("clicked");
+      inviteaccmannager();
+  });
+
+
+  $('.dashboard_api_filter').click(function(){
+    console.log(" dashboard api clicked");
+     //dashboardapifilter();
+  });
+
+
+
+  $(".invitemembermodel").click(function() {
+   $("#frmInvite").find("input[type=email]").val("");
+
+});
+
+
+
+  $('ul.pagination a').click(function(){
+    var pagenumber = this.text;
+    var total = $(this).parents('div').find('span[name=total]').text();
+    console.log(total);
+    var pagecount = (total <= 10) ? 1 : (total / 10);
+
+    $(this).parents('ul').find('a').each(function(){
+      console.log(this.text);
+      $(this).removeClass('active');
+      if(this.text === pagenumber){
+        $(this).addClass('active');
+      }
+    });    
+  });
+
+
+  
+
+  //----------------------
+  // User Type Filter Click
+  $("a.usertype").click(function(){
+    var userType = $(this).text();
+    $("#dropdownMenu1").val(userType);
+    $("#dropdownMenu1").html('<span class="fa fa-angle-down pull-right pt-2"></span><span class="drop-text">'+userType+'</span>');
+    var usertype = $("#dropdownMenu1").val();
+    var userstatus = $("#dropdownMenu2").val();
+    var organization = $("#dropdownMenu3").val();
+    var title = $("#dropdownMenu4").val();
+    var registrationStartDate = $("#startdate").val();
+    var registrationEndDate = $("#enddate").val();
+    if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+    if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+    if(organization === ''){ organization = $("#dropdownMenu3").text();}
+    if(title === ''){ title = $("#dropdownMenu4").text();}
+
+    getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+
+  // User Status Filter Click
+  $('ul.status-dd input[type=checkbox]').click(function () {
+      var checkedItems = [];
+      var allChecked = true;
+      var checkedValues = '';
+
+      if(this.id === 'all-status'){        
+        checkedValues = $(this).next('label').text();
+        $(this).closest('ul').find('li input[type=checkbox]').each(function (indx, item) {
+          $(item).prop('checked', false);
+        });
+        $(this).prop('checked',true);
+      }else{
+        $(this).closest('ul').find('li input[type=checkbox]').each(function (indx, item) {
+            if(indx > 0){
+              if($(this).is(':checked')){
+                checkedItems.push($(this).next('label').text());
+              }else{
+                allChecked = false;
+              }
+            }
+        });
+        
+        checkedValues = checkedItems.join();
+         $('#all-status').prop('checked',false);
+      }
+
+      $("#dropdownMenu2").val(checkedValues);
+      if(checkedValues.length > 13) checkedValues = checkedValues.substring(0,13)+'...';
+      $("#dropdownMenu2").text();
+      $("#dropdownMenu2").html('<span class="fa fa-angle-down pull-right pt-2"></span></span><span class="drop-text">'+checkedValues);
+
+      var usertype=$("#dropdownMenu1").val();  
+      var userstatus=$("#dropdownMenu2").val();
+      var organization=$("#dropdownMenu3").val();
+      var title=$("#dropdownMenu4").val();
+      var registrationStartDate=$("#startdate").val();
+      var registrationEndDate=$("#enddate").val();
+      if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+      if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+      if(organization === ''){ organization = $("#dropdownMenu3").text();}
+      if(title === ''){ title = $("#dropdownMenu4").text();}
+      getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+
+  $('.startdate').change(function(e){
+      //alert(e);
+      var usertype = $("#dropdownMenu1").val();
+      var userstatus = $("#dropdownMenu2").val();
+      var organization = $("#dropdownMenu3").val();
+      var title = $("#dropdownMenu4").val();
+      var registrationStartDate = $("#startdate").val();
+      var registrationEndDate = $("#enddate").val();
+      if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+      if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+      if(organization === ''){ organization = $("#dropdownMenu3").text();}
+      if(title === ''){ title = $("#dropdownMenu4").text();}
+      getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+  
+  $('.enddate').change(function(e){
+      //alert(e);
+      var usertype = $("#dropdownMenu1").val();
+      var userstatus = $("#dropdownMenu2").val();
+      var organization = $("#dropdownMenu3").val();
+      var title = $("#dropdownMenu4").val();
+      var registrationStartDate = $("#startdate").val();
+      var registrationEndDate = $("#enddate").val();
+      if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+      if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+      if(organization === ''){ organization = $("#dropdownMenu3").text();}
+      if(title === ''){ title = $("#dropdownMenu4").text();}
+      getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+
+
+  // Organization Filter Click
+  $('ul.org-dd input[type=checkbox]').click(function () {
+      var checkedItems = [];
+      var allChecked = true;
+      var checkedValues = '';
+
+      if(this.id === 'all-org'){        
+        checkedValues = $(this).next('label').text();
+        $(this).closest('ul').find('li input[type=checkbox]').each(function (indx, item) {
+          $(item).prop('checked', false);
+        });
+        $(this).prop('checked',true);
+      }else{
+        $(this).closest('ul').find('li input[type=checkbox]').each(function (indx, item) {
+            if(indx > 0){
+              if($(this).is(':checked')){
+                checkedItems.push($(this).next('label').text());
+              }else{
+                allChecked = false;
+              }
+            }
+        });
+        
+        checkedValues = checkedItems.join();
+        $('#all-org').prop('checked',false);
+      }
+
+      $("#dropdownMenu3").val(checkedValues);
+      if(checkedValues.length > 10) checkedValues = checkedValues.substring(0,10)+'...';
+      $("#dropdownMenu3").text();
+      $("#dropdownMenu3").html('<span class="fa fa-angle-down pull-right pt-2"></span></span><span class="drop-text">'+checkedValues);
+
+      var usertype=$("#dropdownMenu1").val();  
+      var userstatus=$("#dropdownMenu2").val();
+      var organization=$("#dropdownMenu3").val();
+      var title=$("#dropdownMenu4").val();
+      var registrationStartDate=$("#startdate").val();
+      var registrationEndDate=$("#enddate").val();
+      if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+      if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+      if(organization === ''){ organization = $("#dropdownMenu3").text();}
+      if(title === ''){ title = $("#dropdownMenu4").text();}
+      getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+
+
+
+  // Title Filter Click
+  $('#all-title').click(function(){
+        var checkedValues = $(this).next('label').text();
+        $('li.all-check').next('div').find('ul.title-dd li input[type=checkbox]').each(function (indx, item) {
+          $(item).prop('checked', false);
+        });
+        $(this).prop('checked',true);
+        $("#dropdownMenu4").val(checkedValues);
+        if(checkedValues.length > 9) checkedValues = checkedValues.substring(0,9)+'...';
+        $("#dropdownMenu4").text();
+        $("#dropdownMenu4").html('<span class="fa fa-angle-down pull-right pt-2"></span></span><span class="drop-text">'+checkedValues);
+
+        var usertype=$("#dropdownMenu1").val();  
+        var userstatus=$("#dropdownMenu2").val();
+        var organization=$("#dropdownMenu3").val();
+        var title=$("#dropdownMenu4").val();
+        var registrationStartDate=$("#startdate").val();
+        var registrationEndDate=$("#enddate").val();
+        if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+        if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+        if(organization === ''){ organization = $("#dropdownMenu3").text();}
+        if(title === ''){ title = $("#dropdownMenu4").text();}
+        getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title); 
+  });
+
+  $('ul.title-dd input[type=checkbox]').click(function () {
+      var checkedItems = [];
+      var allChecked = true;
+      var checkedValues = '';
+
+      $('li.all-check').next('div').find('ul.title-dd li input[type=checkbox]').each(function (indx, item) {
+          if($(this).is(':checked')){
+              checkedItems.push($(this).next('label').text());
+            }else{
+              allChecked = false;                
+            }
+      });
+      
+      checkedValues = checkedItems.join();
+
+      $('#all-title').prop('checked',false);
+
+      $("#dropdownMenu4").val(checkedValues);
+      if(checkedValues.length > 9) checkedValues = checkedValues.substring(0,9)+'...';
+      $("#dropdownMenu4").text();
+      $("#dropdownMenu4").html('<span class="fa fa-angle-down pull-right pt-2"></span></span><span class="drop-text">'+checkedValues);
+
+      var usertype=$("#dropdownMenu1").val();  
+      var userstatus=$("#dropdownMenu2").val();
+      var organization=$("#dropdownMenu3").val();
+      var title=$("#dropdownMenu4").val();
+      var registrationStartDate=$("#startdate").val();
+      var registrationEndDate=$("#enddate").val();
+      if(usertype === ''){ usertype = $("#dropdownMenu1").text();}
+      if(userstatus === ''){ userstatus = $("#dropdownMenu2").text();}
+      if(organization === ''){ organization = $("#dropdownMenu3").text();}
+      if(title === ''){ title = $("#dropdownMenu4").text();}
+      getgriddatabyfilters(usertype, userstatus, registrationStartDate,registrationEndDate ,organization, title);  
+  });
+
+
+  //On Status Change
+  $("a.status").click(function(){
+    var status = this.text;    
+    var email = $(this).closest('tr').find('td.email a').text();
+    var updated = updatestatus(email, status, this);    
+  });
+
+  //Search Items in Dropdowns
+  $('ul.status-dd input[type=text]').keyup(function(){        
+        var searchText = $(this).val();
+        $('ul.status-dd li').each(function(){            
+            var currentLiText = $(this).find('label').text();
+            if(currentLiText && currentLiText !== '' && currentLiText.trim() !== 'All'){
+                var showCurrentLi = currentLiText.toLowerCase().indexOf(searchText) !== -1;            
+                $(this).toggle(showCurrentLi);
+            }
+        });     
+    });
+
+  $('ul.org-dd input[type=text]').keyup(function(){        
+        var searchText = $(this).val();
+        $('ul.org-dd li').each(function(){            
+            var currentLiText = $(this).find('label').text();
+            if(currentLiText && currentLiText !== '' && currentLiText.trim() !== 'All'){
+                var showCurrentLi = currentLiText.toLowerCase().indexOf(searchText) !== -1;            
+                $(this).toggle(showCurrentLi);
+            }
+        });     
+    });
+
+  $('.title-search').keyup(function(){        
+        var searchText = $(this).val();        
+        $('li.all-check').next('div').find('ul.title-dd li').each(function (indx, item) {
+          var currentLiText = $(this).find('label').text();
+            if(currentLiText && currentLiText !== '' && currentLiText.trim() !== 'All'){
+                var showCurrentLi = currentLiText.toLowerCase().indexOf(searchText) !== -1;            
+                $(this).toggle(showCurrentLi);
+            }
+      });     
+    });
+}); // end document .ready
+
+
+
+function updatestatus(email, status, component){
+  $.ajax({
+    url: "/updatestatus",
+    method: "post",
+    data:JSON.stringify({"email": email,"status":status}),
+    type:'post',
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  }).success(function(data) {
+    if(data.updated){
+      $(component).closest('td').find('a.status-dd').html(status+' <i class="fa fa-angle-down"></i>');
+      return true;
+    }
+  }).error(function( xhr, status, err ) {
+      console.log(err);
+      return false;
+  });
+}
+
+
+
+
+function dashboardapifilter(){
+  alert("dashboard api function clicked");
+  console.log("dashboard api function clicked");
+
+  $.ajax({
+        url: "/api/dashboardapifilterdata/",
+        method: "post",
+        data:JSON.stringify({}),
+        type:'post',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+      }).success(function( data ) {
+        // $('#InviteTeamMemberModal').modal('hide');
+     console.log('api success--',data);
+        // window.location.reload();
+      }).error(function( xhr, status, err ) {
+         console.log(err);
+          // $(".invite_form_error").text($.parseJSON(xhr.responseText).message);
+          // $(".invite_form_error").show();              
+      });
+
+}
+
+
+
+
+function inviteaccmannager(){
+    var email = $("input[name='inviteemail']").val();
+     var organization = $("input[name='inviteorg']").next('div.modal-org').val();
+     var titleString = $("input[name='invitetitle']").val();  
+     
+
+     if(!email){
+        $(".invite_form_error").text('Please enter email');
+        return;
+     }else
+     {
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email))
+        {
+          $(".invite_form_error ").text('Please enter a valid email');
+          return ;
+        }
+     }
+     if(!organization){
+        $(".invite_form_error").text('Please enter organization');
+        return;
+     }
+     if(!titleString){
+        $(".invite_form_error").text('Please enter title');
+        return;
+     }
+     
+     var titlesArray = [];
+     var titles = [];
+     if(titleString){
+        titlesArray = titleString.split(',');
+     }
+     $.each(titlesArray,function(indx, item){
+        titles.push({'name':item});
+     });
+
+     console.log(titles);
+     
+     $.ajax({
+      url: "/inviteaccman/",
+      method: "post",
+      data:JSON.stringify({"email": email,"organization":organization, "titles": titles}),
+      type:'post',
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    }).success(function( data ) {
+      $('#InviteTeamMemberModal').modal('hide');
+      console.log(data.message);
+      window.location.reload();
+    }).error(function( xhr, status, err ) {
+        $(".invite_form_error").text($.parseJSON(xhr.responseText).message);
+        $(".invite_form_error").show();              
+    });
+}
+
+function getgriddatabyfilters(role, status, registrationStartDate, registrationEndDate, organization, titles){
+  var role =role.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  var status = status.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  var registrationDate = registrationStartDate;
+  var registrationEndDate = registrationEndDate;
+  var organization = organization.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  var titles = titles.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  var query='registrationDate='+registrationDate+'&registrationEndDate='+registrationEndDate;
+  var checkedItems = [];
+
+  if(status === 'All'){
+    $('#dropdownMenu2').next('ul').find('li input[type=checkbox]').each(function (indx, item) {
+        if(indx > 0){
+          checkedItems.push($(this).next('label').text());
+        }
+    });
+        
+    status = checkedItems.join();
+    console.log('status--', status);
+  }
+ 
+ if(organization === 'All'){
+    checkedItems = [];
+    $('#dropdownMenu3').next('ul').find('li input[type=checkbox]').each(function (indx, item) {
+        if(indx > 0){
+          checkedItems.push($(this).next('label').text());
+        }
+    });
+        
+    organization = checkedItems.join();
+    console.log('organization--', organization);
+  }
+
+  if(titles === 'All'){
+    checkedItems = [];
+    $('li.all-check').next('div').find('ul.title-dd li input[type=checkbox]').each(function (indx, item) {
+      checkedItems.push($(item).next('label').text());
+    });
+
+    titles = checkedItems.join();
+    console.log('titles--', titles);
+  }
+
+  query =query+'&role='+role;
+  query =query+'&status='+status;
+  query =query+'&organization='+organization;
+  query =query+'&titles='+titles;
+  
+  console.log(query);
+  $.ajax({
+    url: "/alluserdata/?"+query,
+    method: "get",    
+    type:'get'
+  }).success(function(data) {
+    if (data) {
+      $('.usertable').empty();
+      $('.usertable').html(data);
+      
+
+      //Input Box Selectize
+      $('.input-tags').selectize({
+        plugins: ['remove_button'],
+        persist: false,
+        onDelete: function(values) {
+            return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+        },
+        create: function(input) {
+            var email= $(this.$input).parents('tr').find('td:nth-child(2)').text();
+            var organization= $(this.$input).parents('tr').find('td:nth-child(4)').text();
+            if(!organization){
+               organization = $('.loginuserorg').text();
+            }
+            var isInvite = ($(this.$input).parents('tr').find('.invite').text() === 'Invited') ? true : false;
+            addtitle(email, input, organization, isInvite);
+              return {
+                  value: input,
+                  text: input
+              }
+        }
+      });
+
+      //Organization Selectize
+      $('.modal-org').selectize({
+        plugins: ['remove_button'],
+        persist: false,
+        maxItems: 1,
+        options: orgs,
+        create: function(input) {
+            $("input[name='inviteorg']").val(input);
+            return {
+                  value: input,
+                  text: input
+              }
+        },
+        onItemAdd: function(organization){
+         var self = this;
+         var titleControl;
+         var titles = [];
+
+         $.each($select,function(indx, control){
+            if(control.name === 'invitetitle'){
+               titleControl = control.selectize;
+            }
+         });
+
+         $.each(optns,function(indx, item){
+               if(organization === item.key){
+                  if(item.value.indexOf(',') > 0){
+                     titles = item.value.split(',');
+                  }
+               }
+            });
+            if(titles.length > 0){
+               titleControl.clearOptions();
+               $.each(titles,function(indx, title){
+                  titleControl.addOption({'text': title, 'value': title});                  
+               });               
+            }
+        },
+        onChange: function(organization){
+         var self = this;
+         var titleControl;
+         var titles = [];
+         console.log(organization);
+         $("input[name='inviteorg']").val(organization);
+         $.each($select,function(indx, control){
+            if(control.name === 'invitetitle'){
+               titleControl = control.selectize;
+            }
+         });
+
+         $.each(optns,function(indx, item){
+               if(organization === item.key){
+                  if(item.value.indexOf(',') > 0){
+                     titles = item.value.split(',');
+                  }
+               }
+            });
+            if(titles.length > 0){
+               titleControl.clearOptions();
+               $.each(titles,function(indx, title){
+                  titleControl.addOption({'text': title, 'value': title});                  
+               });               
+            }
+        }
+    });
+
+    }
+  }).error(function( xhr, status, err ) {
+      console.log("error-->>", xhr.responseText);   
+  });
+
+}
+
+function deletetitle(idfordelete,idemail,isInvite){
+  console.log(idfordelete);
+  var email = idemail;
+  var name = idfordelete;
+  
+  $.ajax({
+    url: "/api/dltgame",
+    method: "post",
+    data:JSON.stringify({"email": email,"name":name,"isinvite": isInvite}),
+    type:'post',
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  }).success(function(data) {    
+      console.log(data);
+  }).error(function( xhr, status, err ) {
+      console.log(err);
+  });  
+}
+
+function addtitle(email, title, organization, isInvite){
+  $.ajax({
+    url: "/api/addgame",
+    method: "post",
+    data:JSON.stringify({"email": email,"title":title,"organization":organization,"isinvite": isInvite}),
+    type:'post',
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  }).success(function(data) {
+    console.log(data);  
+    window.location.reload();  
+  }).error(function( xhr, status, err ) {
+    console.log(err);          
+  });  
+}
